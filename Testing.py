@@ -104,7 +104,8 @@ def build_baseline():
 
 
 # Evaluate a model on label accuracy and loss
-def evaluate_model(model, dataX, dataY, num_folds=6):
+# We are passing the function itself, NOT building a model.
+def evaluate_model(dataX, dataY, model_type, num_folds=6):
     """
     Why use validation data?
     https://stackoverflow.com/questions/46308374/what-is-validation-data-used-for-in-a-keras-sequential-model
@@ -135,6 +136,8 @@ def evaluate_model(model, dataX, dataY, num_folds=6):
 
     # For set of indices
     for train_index, test_index in kf.split(dataX):
+        # Define model
+        model = model_type()
         # Create train and test sets based off of indices
         trainX, trainY = dataX[train_index], dataY[train_index]
         testX, testY = dataX[test_index], dataY[test_index]
@@ -150,7 +153,7 @@ def evaluate_model(model, dataX, dataY, num_folds=6):
         histories.append(history)
         print('Run', len(scores), 'accuracy is > %.3f' % (accuracy * 100.0))
 
-    print('Accuracy: mean=%.3f std=%.3f, n=%d' % (mean(scores)*100, std(scores)*100, len(scores)))
+    print('Accuracy: \n\tmean=%.3f \n\tstd=%.3f \n\tn=%d' % (mean(scores) * 100, std(scores) * 100, len(scores)))
 
     return scores, histories
 
@@ -182,19 +185,25 @@ def plot_evaluation(histories):
 
 
 # Combine the functions to effectively evaluate a function
-def evaluation_harness(model):
+# We are passing the function itself, NOT building a model
+def evaluation_harness(model_type):
+    print("Evaluating", model_type.__name__)
     # Load dataset
     trainX, trainY, testX, testY = load_datasets()
     # Normalize pixels
     trainX, testX = normalize_pixels(trainX, testX)
     # Evaluate Model
-    scores, histories = evaluate_model(model, trainX, trainY)
+    scores, histories = evaluate_model(trainX, trainY, model_type)
     # Plot learning curves
     plot_evaluation(histories)
 
 
 # Train a model, test it on the test set, then save the weights
-def final_test(model, save_name):
+# We are passing the function itself, NOT building a model.
+def final_test(model_type, save_name):
+    print("Testing and saving", model_type.__name__)
+    # Build the model
+    model = model_type()
     # Load Dataset
     trainX, trainY, testX, testY = load_datasets()
     # Normalize Pixels

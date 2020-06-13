@@ -45,8 +45,8 @@ def build_new_model():
 
 
 # Entry Point
-new_model = build_new_model()
+# NOTE: Be sure to pass the function itself rather than calling a build function
 # Evaluate new model
-evaluation_harness(new_model)
+evaluation_harness(build_new_model)
 # Test and save weights for new model
-# final_test(model, "new_model")
+final_test(build_new_model, "new_model")
