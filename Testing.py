@@ -2,13 +2,15 @@
 Benjamin Raiford — June 2020
 Convolutional Neural Network for MNIST
 
-This project, especially the baseline, owes a substantial debt to Jason Brownlee's tutorial at:
+This project owes a substantial debt to Jason Brownlee's tutorial at:
 https://machinelearningmastery.com/how-to-develop-a-convolutional-neural-network-from-scratch-for-mnist-handwritten-digit-classification/
 """
 
 # General Imports
 from sklearn.model_selection import KFold
 from matplotlib import pyplot as plt
+from numpy import mean
+from numpy import std
 
 # Keras Imports
 from keras.datasets import mnist
@@ -148,6 +150,8 @@ def evaluate_model(model, dataX, dataY, num_folds=6):
         histories.append(history)
         print('Run', len(scores), 'accuracy is > %.3f' % (accuracy * 100.0))
 
+    print('Accuracy: mean=%.3f std=%.3f, n=%d' % (mean(scores)*100, std(scores)*100, len(scores)))
+
     return scores, histories
 
 
@@ -190,7 +194,7 @@ def evaluation_harness(model):
 
 
 # Train a model, test it on the test set, then save the weights
-def final_test(model):
+def final_test(model, save_name):
     # Load Dataset
     trainX, trainY, testX, testY = load_datasets()
     # Normalize Pixels
@@ -198,4 +202,4 @@ def final_test(model):
     # Fit model
     model.fit(trainX, trainY, epochs=10, batch_size=32, verbose=0)
     # Save model
-    model.save('final_model.h5')
+    model.save('%ds.h5' % save_name)

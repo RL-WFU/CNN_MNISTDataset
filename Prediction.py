@@ -22,15 +22,22 @@ def load_image(filename):
 
 
 # Load image and predict class
-def run_example():
+def run_example(ex_image, saved_weights):
     # Load Image
-    img = load_image('PredictionImages/example_5.png')
+    img = load_image('%s' % ex_image)
     # Load model weights
-    model = load_model('final_model.h5')
+    model = load_model('%s' % saved_weights)
     # Predict categorical variable (digit)
     digit = model.predict_classes(img)
     print(digit[0])
 
 
 # Entry Point
-run_example()
+# Initialize weights and example images to load
+weights = "final_model.h5"
+example5 = "PredictionImages/example_5.png"
+example7 = "PredictionImages/example_7.png"
+
+# Predict classes for each example image
+run_example(example5, weights)
+run_example(example7, weights)
