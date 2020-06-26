@@ -5,6 +5,7 @@ Adapted from Jason Brownlee
 from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
 from keras.models import load_model
+import numpy as np
 
 
 # Load and Prepare Image
@@ -27,9 +28,17 @@ def run_example(ex_image, saved_weights):
     img = load_image('%s' % ex_image)
     # Load model weights
     model = load_model('%s' % saved_weights)
+
     # Predict categorical variable (digit)
-    digit = model.predict_classes(img)
-    print(digit[0])
+
+    # Print probabilities
+    digit_probs = model.predict(img)
+    print(digit_probs)
+
+    # Print digit with highest probability, and certainty level
+    digit = np.argmax(digit_probs, axis=-1)
+    percent_certain = digit_probs[-1, digit[0]]
+    print(digit[0], "with {:.3%}".format(percent_certain), "certainty\n")
 
 
 # Entry Point
@@ -41,3 +50,8 @@ example7 = "PredictionImages/example_7.png"
 # Predict classes for each example image
 run_example(example5, weights)
 run_example(example7, weights)
+
+"""
+Helpful articles:
+https://stackoverflow.com/questions/47435526/what-is-the-meaning-of-axis-1-in-keras-argmax
+"""
