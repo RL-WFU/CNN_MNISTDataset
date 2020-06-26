@@ -1,6 +1,7 @@
 """
 Benjamin Raiford — June 2020
 Convolutional Neural Network for MNIST
+    Provide a baseline model and a test harness for all models
 
 This project owes a substantial debt to Jason Brownlee's tutorial at:
 https://machinelearningmastery.com/how-to-develop-a-convolutional-neural-network-from-scratch-for-mnist-handwritten-digit-classification/
