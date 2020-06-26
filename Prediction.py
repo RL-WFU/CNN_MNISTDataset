@@ -29,8 +29,6 @@ def run_example(ex_image, saved_weights):
     # Load model weights
     model = load_model('%s' % saved_weights)
 
-    # Predict categorical variable (digit)
-
     # Print probabilities
     digit_probs = model.predict(img)
     print(digit_probs)
