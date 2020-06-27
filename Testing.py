@@ -201,6 +201,7 @@ def evaluation_harness(model_type):
 
 # Train a model, test it on the test set, then save the weights
 # We are passing the function itself, NOT building a model.
+# Can comment out the evaluate lines (216-17) to save time
 def final_test(model_type, save_name):
     print("Testing and saving", model_type.__name__)
     # Build the model
@@ -211,5 +212,10 @@ def final_test(model_type, save_name):
     trainX, testX = normalize_pixels(trainX, testX)
     # Fit model
     model.fit(trainX, trainY, epochs=10, batch_size=32, verbose=0)
+    # Evaluate model on test dataset
+    # _, acc = model.evaluate(testX, testY, verbose=0)
+    # print('> %.3f' % (acc * 100.0))
     # Save model
     model.save('%ds.h5' % save_name)
+
+load_datasets()
