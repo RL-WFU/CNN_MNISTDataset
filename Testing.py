@@ -164,8 +164,8 @@ def plot_evaluation(histories):
     print('What is the name of this model?')
     model_name = input()
     for i in range(len(histories)):
-        # FIXME: https://stackoverflow.com/questions/46933824/matplotlib-adding-an-axes-using-the-same-arguments-as-a-previous-axes
-        # Plot Loss – Training set in blue, validation set in orange
+        # FIXME: https://stackoverflow.com/questions/46933824/matplotlib-adding-an-axes-using-the-same-arguments-as-a
+        #  -previous-axes Plot Loss – Training set in blue, validation set in orange
         plt.subplot(2, 1, 1)
         plt.title('Cross Entropy Loss')
         plt.plot(histories[i].history['loss'], color='blue', label='train')
@@ -213,9 +213,7 @@ def final_test(model_type, save_name):
     # Fit model
     model.fit(trainX, trainY, epochs=10, batch_size=32, verbose=0)
     # Evaluate model on test dataset
-    # _, acc = model.evaluate(testX, testY, verbose=0)
-    # print('> %.3f' % (acc * 100.0))
+    _, accuracy = model.evaluate(testX, testY, verbose=0)
+    print('> %.3f' % (accuracy * 100.0))
     # Save model
     model.save('%ds.h5' % save_name)
-
-load_datasets()
