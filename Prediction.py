@@ -129,11 +129,12 @@ def classify_directory(directory_path, saved_weights):
 
             # Prediction and certainty level
             digit_probs = model.predict(img)
+            print(digit_probs)
             digit = np.argmax(digit_probs, axis=-1)
             percent_certain = digit_probs[-1, digit[0]]
 
             # Print filename, prediction, and certainty level
-            print(filename, digit[0], percent_certain)
+            print(filename, digit[0], percent_certain, "\n")
 
             # DEBUG: Show image to check how the .png has translated to the 28x28 array
             # plot_image(img)
@@ -210,8 +211,8 @@ weights = "final_model.h5"
 
 # Pick the classification you'd like to run
 # classify_image(test_image, weights)
-# classify_directory(test_directory, weights)
-classify_mnist(weights, 1000)
+classify_directory(test_directory, weights)
+# classify_mnist(weights, 1000)
 
 """
 Helpful articles:

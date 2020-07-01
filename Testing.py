@@ -216,4 +216,4 @@ def final_test(model_type, save_name):
     _, accuracy = model.evaluate(testX, testY, verbose=0)
     print('> %.3f' % (accuracy * 100.0))
     # Save model
-    model.save('%ds.h5' % save_name)
+    model.save('%s.h5' % save_name)
