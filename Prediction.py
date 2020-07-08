@@ -204,15 +204,16 @@ def classify_mnist(saved_weights, num_selected=100):
 
 
 # Entry Point
-# Initialize weights and example images to load
-test_image = "example_5.png"
-test_directory = "PredictionImages/Raiford_Handwritten"
-weights = "final_model.h5"
+if __name__ == "__main__":
+    # Initialize weights and example images to load
+    test_image = "example_5.png"
+    test_directory = "PredictionImages/Raiford_Handwritten"
+    weights = "final_model.h5"
 
-# Pick the classification you'd like to run
-# classify_image(test_image, weights)
-classify_directory(test_directory, weights)
-# classify_mnist(weights, 1000)
+    # Pick the classification you'd like to run
+    # classify_image(test_image, weights)
+    classify_directory(test_directory, weights)
+    # classify_mnist(weights, 1000)
 
 """
 Helpful articles:
